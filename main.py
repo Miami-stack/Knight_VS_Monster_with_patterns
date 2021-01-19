@@ -250,23 +250,15 @@ class Hero(ABC):
                 print('У вас нет оружия')
 
     @abstractmethod
-    def special_class_skill(self):
-        block_attack = random.choice([True, False])
+    def special_hero(self):
         pass
 
 
 class Warrior(Hero):
     """Класс воин."""
 
-    def special_class_skill(self, enemy_attack: tuple):
-        if enemy_attack[1] == 'warrior':
-            luck = random.choice([True, False])
-            if luck == True:
-                print('Вы заблокировали атаку ближнего боя')
-                return True
-            else:
-                print('Вы не смогли заблокировать атаку')
-                return enemy_attack[0]
+    def special_hero(self, enemy_attack: tuple):
+        return "Спавн вариор", enemy_attack
 
 
 
@@ -274,30 +266,16 @@ class Warrior(Hero):
 class Archer(Hero):
     """Класс лучник."""
 
-    def special_class_skill(self, enemy_attack: tuple):
-        if enemy_attack[1] == 'archer':
-            luck = random.choice([True, False])
-            if luck == True:
-                print('Вы заблокировали атаку дальнего боя')
-                return True
-            else:
-                print('Вы не смогли заблокировать атаку')
-                return enemy_attack[0]
+    def special_hero(self, enemy_attack: tuple):
+        return "Спавн archer", enemy_attack
 
 
 
 class Mag(Hero):
     """Класс мага."""
 
-    def special_class_skill(self, enemy_attack: tuple):
-        if enemy_attack[1] == 'mage':
-            luck = random.choice([True, False])
-            if luck == True:
-                print('Вы заблокировали магическую атаку')
-                return True
-            else:
-                print('Вы не смогли заблокировать атаку')
-                return enemy_attack[0]
+    def special_hero(self, enemy_attack: tuple):
+        return "Спавн mag" , enemy_attack
 
 
 
@@ -375,12 +353,6 @@ while hero.orcs_dead != 10:
                 count = 1
                 while True:
                     enemy.hp = enemy.hp - hero.hero_attack()
-                    if enemy.hp <= 0:
-                        print('У монстра осталось - 0 жизней')
-                        print('Монстр побежден')
-                        hero.hp = hero.hp - hero.special_class_skill(enemy.attack())
-                        hero.monster_dead += 1
-                        break
                     if hero.hp <= 0:
                         print('')
                         print('Вы умерли')
