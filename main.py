@@ -20,7 +20,6 @@ class Item(ABC):
     """Абстрактный класс для итемов."""
     name = ''
     def get_item(self):
-        """Take item"""
         return self
 
 
@@ -94,11 +93,11 @@ class BowFactory(ItemFactory):
         return Bow()
 
 
-class SpellBookFactory(ItemFactory):
+class MagicBookFactory(ItemFactory):
     """Конкретная фабрика для итемов."""
 
     def spawn_item(self):
-        return SpellBook()
+        return MagicBook()
 
 
 class AppleFactory(ItemFactory):
@@ -127,11 +126,11 @@ def item_spawner():
         "sword": SwordFactory,
         "bow":BowFactory,
         "apple": AppleFactory,
-        "spellbook":SpellBookFactory,
+        "magicbook":MagicBookFactory,
         "totem": TotemFactory,
         "arrow": ArrowsFactory
     }
-    item_list = ["sword", "bow", "apple",  "spellbook","totem","arrow"]
+    item_list = ["sword", "bow", "apple",  "magicbook","totem","arrow"]
     SPAWNER_TYPE = random.choice(item_list)
     spawner = spawner_to_factory_mapping[SPAWNER_TYPE]()
     item = spawner.spawn_item()
@@ -152,33 +151,33 @@ class WarriorOrc(Enemy):
     """Класс врага орка воина."""
     damage = Enemy.damage
     hp = Enemy.hp
-    var_type = 'ORC'
+    var_type = 'Warrior'
 
     def attack(self, damage: int = damage):
         print('Орк атакует')
-        return damage, 'melee'
+        return damage
 
 
 class ArcherOrc(Enemy):
     """Класс врага орка лучника."""
     damage = Enemy.damage
     hp = Enemy.hp
-    enemy_type = 'ELF'
+    var_type = 'Archer'
 
     def attack(self, damage: int = damage):
         print('Орк стреляет из лука')
-        return damage, 'range'
+        return damage
 
 
 class MagOrc(Enemy):
     """Класс врага орка мага."""
     damage = Enemy.damage
     hp = Enemy.hp
-    enemy_type = 'WARLOCK'
+    enemy_type = 'Mag'
 
     def attack(self, damage: int = damage):
         print('Орк атакует магической атакой')
-        return damage, 'spell'
+        return damage
 
 
 class EnemyFactory(ABC):
@@ -194,21 +193,21 @@ class WarriorOrcFactory(EnemyFactory):
     """Конкретная фабрика для врага."""
 
     def create_enemy(self):
-        return Orc()
+        return WarriorOrc()
 
 
 class ArcherOrcFactory(EnemyFactory):
     """Конкретная фабрика для врага."""
 
     def create_enemy(self):
-        return AngryElf()
+        return ArcherOrc()
 
 
 class MagOrcFactory(EnemyFactory):
     """Конкретная фабрика для врага."""
 
     def create_enemy(self):
-        return Warlock()
+        return MagOrc()
 
 def spawner():
     spawner_to_factory_mapping = {
