@@ -173,7 +173,7 @@ class MagOrc(Enemy):
     """Класс врага орка мага."""
     damage = Enemy.damage
     hp = Enemy.hp
-    enemy_type = 'Mag'
+    var_type = 'Mag'
 
     def attack(self, damage: int = damage):
         print('Орк атакует магической атакой')
@@ -209,7 +209,7 @@ class MagOrcFactory(EnemyFactory):
     def create_enemy(self):
         return MagOrc()
 
-def spawner():
+def var_spawner():
     spawner_to_factory_mapping = {
         "warriror_orc": WarriorOrcFactory,
         "archer_orc":ArcherOrcFactory,
